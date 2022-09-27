@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  WerkraumMedia\Watchlist\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Model/*'
+
+  WerkraumMedia\Watchlist\Domain\Items\Page\ItemHandler:
+    tags: ['watchlist.itemHandler']

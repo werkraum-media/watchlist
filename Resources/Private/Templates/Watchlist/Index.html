@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <h2>{f:translate(id: 'headline.index', extensionName: 'Watchlist')}</h2>
+
+    <f:if condition="{watchlist.empty}">
+        <f:then>
+            <p>{f:translate(id: 'text.watchlist.isEmpty', extensionName: 'Watchlist')}
+        </f:then>
+        <f:else>
+            <ol>
+                <f:for each="{watchlist.items}" as="item">
+                    <li>{item.title}</li>
+                </f:for>
+            </ol>
+        </f:else>
+    </f:if>
+</html>

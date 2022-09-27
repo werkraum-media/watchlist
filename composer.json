@@ -1,0 +1,80 @@
+{
+    "name": "werkraummedia/watchlist",
+    "description": "Add a watchlist to frontend of TYPO3",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/werkraum-media/watchlist",
+    "support": {
+        "docs": "https://docs.typo3.org/p/werkraummedia/watchlist/master/en-us/",
+        "email": "coding@daniel-siepmann.de",
+        "issues": "https://github.com/werkraum-media/watchlist/issues",
+        "source": "https://github.com/werkraum-media/watchlist"
+    },
+    "authors": [
+        {
+            "name": "Daniel Siepmann",
+            "email": "coding@daniel-siepmann.de",
+            "homepage": "https://daniel-siepmann.de/",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WerkraumMedia\\Watchlist\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WerkraumMedia\\Watchlist\\Tests\\": "Tests/"
+        }
+    },
+    "require": {
+        "php": "~7.4.0 || ~8.0.0 || ~8.1.0",
+        "typo3/cms-backend": "^11.5",
+        "typo3/cms-core": "^11.5",
+        "typo3/cms-extbase": "^11.5",
+        "typo3/cms-frontend": "^11.5"
+    },
+    "require-dev": {
+        "cweagans/composer-patches": "^1.7",
+        "friendsofphp/php-cs-fixer": "^3.11",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan": "1.1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5",
+        "saschaegerer/phpstan-typo3": "^1.1",
+        "typo3/cms-fluid-styled-content": "^11.5",
+        "typo3/cms-tstemplate": "^11.5",
+        "typo3/testing-framework": "^6.6"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "typo3/cms-composer-installers": true,
+            "typo3/class-alias-loader": true,
+            "ocramius/package-versions": true,
+            "phpstan/extension-installer": true,
+            "cweagans/composer-patches": true
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "extension-key": "watchlist",
+            "web-dir": "public"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php -r 'is_dir($extFolder=__DIR__.\"/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
+            "@php -r 'file_exists($extFolder=__DIR__.\"/public/typo3conf/ext/watchlist\") || symlink(__DIR__,$extFolder);'"
+        ]
+    },
+    "extra": {
+        "patches": {
+            "typo3/testing-framework": {
+                "Support cookies in request": "patches/testing-framework-cookies.patch"
+            }
+        }
+    }
+}
