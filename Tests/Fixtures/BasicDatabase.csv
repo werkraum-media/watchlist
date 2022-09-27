@@ -1,0 +1,8 @@
+"pages",,,,,,
+,"uid","pid","slug","title",,
+,1,0,"/","Page Title",,
+,2,1,"/page-2","Page 2 Title",,
+"sys_template",,,,,,
+,"uid","pid","root","clear","constants","config"
+,1,1,1,3,"databasePlatform = mysql","<INCLUDE_TYPOSCRIPT: source=""FILE:EXT:watchlist/Tests/Fixtures/FrontendRendering.typoscript"">
+<INCLUDE_TYPOSCRIPT: source=""FILE:EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript"">"

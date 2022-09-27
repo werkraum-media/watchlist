@@ -1,23 +1,20 @@
 name: CI
+
 on:
   - pull_request
+
 jobs:
   check-composer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Composer
-        uses: shivammathur/setup-php@v2
+      - uses: cachix/install-nix-action@v17
         with:
-          php-version: 8.1
-          coverage: none
-          tools: composer:v2
-        env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Validate composer.json
-        run: composer validate
+        run: nix-shell --pure --run project-validate-composer
 
   php-linting:
     runs-on: ubuntu-latest
@@ -31,62 +28,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2
+
       - name: PHP lint
         run: "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
 
   xml-linting:
     runs-on: ubuntu-latest
-    needs: [check-composer]
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
+      - uses: cachix/install-nix-action@v17
         with:
-          php-version: "8.1"
-          coverage: none
-          tools: composer:v2
+          nix_path: nixpkgs=channel:nixos-unstable
 
-      - name: Install xmllint
-        run: sudo apt-get install libxml2-utils
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: PHPUnit configuration file
-        run: xmllint --schema vendor/phpunit/phpunit/phpunit.xsd --noout phpunit.xml.dist
-
-      - name: Fetch schema for xliff
-        run: wget https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd --output-document=xliff-core-1.2-strict.xsd
-
-      - name: TYPO3 language files
-        run: xmllint --schema xliff-core-1.2-strict.xsd --noout $(find Resources -name '*.xlf')
+      - name: Validate XML
+        run: nix-shell --pure --run project-validate-xml
 
   coding-guideline:
     runs-on: ubuntu-latest
-    needs:
-      - php-linting
-      - xml-linting
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
+      - uses: cachix/install-nix-action@v17
         with:
-          php-version: "8.1"
-          coverage: none
-          tools: composer:v2
+          nix_path: nixpkgs=channel:nixos-unstable
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Coding Guideline
-        run: ./vendor/bin/php-cs-fixer fix --dry-run --diff
+      - name: Check Coding Guideline
+        run: nix-shell --pure --run project-coding-guideline
 
   code-quality:
     runs-on: ubuntu-latest
-    needs:
-      - php-linting
     strategy:
       matrix:
         include:
@@ -103,17 +80,16 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      - name: Install dependencies with expected TYPO3 version
-        run: composer require --no-interaction --prefer-dist --no-progress
+      - name: Install dependencies
+        run: |-
+          composer require --no-interaction --prefer-dist --no-progress
+          ./vendor/bin/codecept build
 
       - name: Code Quality (by PHPStan)
         run: ./vendor/bin/phpstan analyse
 
   tests-mysql:
     runs-on: ubuntu-latest
-    needs:
-      - php-linting
-      - xml-linting
     strategy:
       matrix:
         include:
@@ -137,14 +113,32 @@ jobs:
           mysql database: 'typo3'
           mysql root password: 'root'
 
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --password=root --silent; do
+            sleep 1
+          done
+
       - name: Install dependencies
-        run: composer require --no-interaction --prefer-dist --no-progress
+        run: composer install --no-interaction --prefer-dist --no-progress
 
       - name: PHPUnit Tests
-        run: |-
-          export typo3DatabaseDriver="pdo_mysql"
-          export typo3DatabaseName="typo3"
-          export typo3DatabaseHost="127.0.0.1"
-          export typo3DatabaseUsername="root"
-          export typo3DatabasePassword="root"
-          ./vendor/bin/phpunit --testdox
+        env:
+          typo3DatabaseDriver: "pdo_mysql"
+          typo3DatabaseName: "typo3"
+          typo3DatabaseHost: "127.0.0.1"
+          typo3DatabaseUsername: "root"
+          typo3DatabasePassword: "root"
+        run: ./vendor/bin/phpunit --testdox
+
+  tests-acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: cachix/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Run Acceptance Tests
+        run: nix-shell --pure --run project-test-acceptance

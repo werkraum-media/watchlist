@@ -11,3 +11,7 @@ services:
 
   WerkraumMedia\Watchlist\Domain\Items\Page\ItemHandler:
     tags: ['watchlist.itemHandler']
+
+  WerkraumMedia\Watchlist\Session\CookieSessionService:
+    # Has state and needs to be shared in order to provide this state to middleware
+    shared: true

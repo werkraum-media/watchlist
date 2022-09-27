@@ -1,0 +1,35 @@
+page = PAGE
+page {
+    # Include JavaScript in order to test the JavaScript
+    includeJSFooter.watchlist = EXT:watchlist/Resources/Public/JavaScript/Watchlist.js
+
+    # Render the content element
+    10 =< tt_content.watchlist_watchlist.20
+
+    # Add minimum CSS for checking functionality within Acceptance tests
+    cssInline {
+        10 = TEXT
+        10.value (
+            .watchlist-inactive .remove-from-list { display: none; }
+            .watchlist-active .add-to-list { display: none; }
+        )
+    }
+
+    # Add some example markup for Acceptance Tests
+    20 = TEXT
+    20.value (
+        <span data-watchlist-counter class="watchlist-badge-counter"></span>
+
+        <button data-watchlist-item="page-1" class="watchlist-btn watchlist-inactive">
+            Page 1
+            <span class="add-to-list">zur Merkliste hinzufügen</span>
+            <span class="remove-from-list">von Merkliste entfernen</span>
+        </button>
+
+        <button data-watchlist-item="page-2" class="watchlist-btn watchlist-inactive">
+            Page 2
+            <span class="add-to-list">zur Merkliste hinzufügen</span>
+            <span class="remove-from-list">von Merkliste entfernen</span>
+        </button>
+    )
+}
