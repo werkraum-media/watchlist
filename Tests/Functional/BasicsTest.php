@@ -39,6 +39,7 @@ class BasicsTest extends FunctionalTestCase
 
     protected $testExtensionsToLoad = [
         'typo3conf/ext/watchlist',
+        'typo3conf/ext/watchlist/Tests/Fixtures/watchlist_example',
     ];
 
     protected $pathsToLinkInTestInstance = [
