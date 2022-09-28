@@ -1,5 +1,6 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use WerkraumMedia\Watchlist\Controller\WatchlistController;
 use WerkraumMedia\Watchlist\Extbase\TypeConverter\ItemTypeConverter;
@@ -22,4 +23,7 @@ defined('TYPO3') || die('Access denied.');
 
     ExtensionUtility::registerTypeConverter(WatchlistTypeConverter::class);
     ExtensionUtility::registerTypeConverter(ItemTypeConverter::class);
+    ExtensionManagementUtility::addPageTSConfig(
+        "@import 'EXT:watchlist/Configuration/TSconfig/Page/Default.tsconfig'"
+    );
 })();

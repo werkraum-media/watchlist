@@ -1,0 +1,16 @@
+mod.wizards.newContentElement.wizardItems.special {
+    elements {
+        watchlist {
+            iconIdentifier = content-bullets
+            title = LLL:EXT:watchlist/Resources/Private/Language/locallang.xlf:tt_content.watchlist_watchlist.title
+            description = LLL:EXT:watchlist/Resources/Private/Language/locallang.xlf:tt_content.watchlist_watchlist.description
+            tt_content_defValues {
+                CType = watchlist_watchlist
+                header = Watchlist
+                header_layout = 100
+            }
+        }
+    }
+    show := addToList(watchlist)
+}
+
