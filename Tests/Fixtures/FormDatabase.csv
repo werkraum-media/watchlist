@@ -1,0 +1,17 @@
+"sys_template",,,,,
+,"pid","config",,,
+,2,"<INCLUDE_TYPOSCRIPT: source=""FILE:EXT:watchlist_example/Configuration/TypoScript/Form.typoscript"">
+""",,,
+"tt_content",,,,,
+,"pid","header","CType","pi_flexform",
+,2,"Form","form_formframework","<?xml version=""1.0"" encoding=""utf-8"" standalone=""yes"" ?><T3FlexForms>
+    <data>
+        <sheet index=""sDEF"">
+            <language index=""lDEF"">
+                <field index=""settings.persistenceIdentifier"">
+                    <value index=""vDEF"">EXT:watchlist_example/Configuration/Forms/Example.form.yaml</value>
+                </field>
+            </language>
+        </sheet>
+    </data>
+</T3FlexForms>",

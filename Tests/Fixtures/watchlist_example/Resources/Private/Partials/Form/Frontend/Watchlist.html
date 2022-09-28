@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <formvh:renderRenderable renderable="{element}">
+        <f:if condition="{element.watchlist.formElementAwareItems}">
+            <f:render partial="Field/Field" arguments="{element: element, doNotShowLabel: 1}" contentAs="elementContent">
+                <f:for each="{element.watchlist.formElementAwareItems}" as="item" iteration="iterator">
+                    <div class="form-check">
+                        <label class="{element.properties.elementClassAttribute} form-check-label" for="{element.uniqueIdentifier}-{iterator.index}">
+                            <f:form.checkbox
+                                property="{element.identifier}"
+                                id="{element.uniqueIdentifier}-{iterator.index}"
+                                class="{element.properties.elementClassAttribute}"
+                                value="{item.formElementValue}"
+                                errorClass="{element.properties.elementErrorClassAttribute}"
+                                additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                            />
+                            <span>{item.formElementTitle}</span>
+                        </label>
+                    </div>
+                </f:for>
+            </f:render>
+        </f:if>
+    </formvh:renderRenderable>
+
+</html>

@@ -44,6 +44,7 @@ class Environment extends BackendEnvironment
             'frontend',
             'fluid',
             'fluid_styled_content',
+            'form',
         ],
         'testExtensionsToLoad' => [
             'typo3conf/ext/watchlist',
@@ -51,6 +52,7 @@ class Environment extends BackendEnvironment
         ],
         'csvDatabaseFixtures' => [
             __DIR__ . '/../../Fixtures/BasicDatabase.csv',
+            __DIR__ . '/../../Fixtures/FormDatabase.csv',
         ],
         'additionalFoldersToCreate' => [
             'config',

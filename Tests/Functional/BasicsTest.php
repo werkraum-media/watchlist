@@ -28,9 +28,6 @@ use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalResponse;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @covers \WerkraumMedia\Watchlist\Frontend\Basics
- */
 class BasicsTest extends FunctionalTestCase
 {
     protected $coreExtensionsToLoad = [

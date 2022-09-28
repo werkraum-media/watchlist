@@ -23,49 +23,18 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Domain\Model;
 
-class Watchlist
+/**
+ * Needs to be implemented by all Items which should be usable for form integration.
+ */
+interface FormElementAwareItem
 {
     /**
-     * @var Item[]
+     * Provides the actual value to use when submitting the element.
      */
-    private array $items = [];
-
-    public function getIdentifier(): string
-    {
-        return 'default';
-    }
+    public function getFormElementValue(): string;
 
     /**
-     * @return Item[]
+     * Provides the actual title to use as label within the element.
      */
-    public function getItems(): array
-    {
-        return array_values($this->items);
-    }
-
-    /**
-     * @return array<Item&FormElementAwareItem>
-     */
-    public function getFormElementAwareItems(): array
-    {
-        return array_filter(
-            array_values($this->items),
-            fn (Item $item) => $item instanceof FormElementAwareItem
-        );
-    }
-
-    public function addItem(Item $item): void
-    {
-        $this->items[$item->getUniqueIdentifier()] = $item;
-    }
-
-    public function removeItem(Item $item): void
-    {
-        unset($this->items[$item->getUniqueIdentifier()]);
-    }
-
-    public function isEmpty(): bool
-    {
-        return $this->items === [];
-    }
+    public function getFormElementTitle(): string;
 }

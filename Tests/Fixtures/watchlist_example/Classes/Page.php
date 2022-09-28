@@ -24,9 +24,10 @@ declare(strict_types=1);
 namespace WerkraumMedia\WatchlistExample;
 
 use TYPO3\CMS\Core\Resource\FileInterface;
+use WerkraumMedia\Watchlist\Domain\Model\FormElementAwareItem;
 use WerkraumMedia\Watchlist\Domain\Model\Item;
 
-class Page implements Item
+class Page implements Item, FormElementAwareItem
 {
     private int $pageUid;
 
@@ -57,5 +58,15 @@ class Page implements Item
     public function getImage(): ?FileInterface
     {
         return $this->image;
+    }
+
+    public function getFormElementValue(): string
+    {
+        return 'Page: ' . $this->title;
+    }
+
+    public function getFormElementTitle(): string
+    {
+        return 'Form: ' . $this->title;
     }
 }

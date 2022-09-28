@@ -1,0 +1,14 @@
+TYPO3:
+  CMS:
+    Form:
+      persistenceManager:
+        allowedExtensionPaths:
+          10: EXT:watchlist_example/Configuration/Forms/
+
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                partialRootPaths:
+                  99: 'EXT:watchlist_example/Resources/Private/Partials/Form/Frontend/'
