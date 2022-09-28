@@ -21,8 +21,9 @@ declare(strict_types=1);
  * 02110-1301, USA.
  */
 
-namespace WerkraumMedia\Watchlist\Tests\Functional\Frontend;
+namespace WerkraumMedia\Watchlist\Tests\Functional;
 
+use Symfony\Component\HttpFoundation\Cookie;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalResponse;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -40,21 +41,15 @@ class BasicsTest extends FunctionalTestCase
         'typo3conf/ext/watchlist',
     ];
 
-    protected $pathsToProvideInTestInstance = [
-        'typo3conf/ext/watchlist/Tests/Functional/Frontend/Fixtures/Sites/' => 'typo3conf/sites/',
+    protected $pathsToLinkInTestInstance = [
+        'typo3conf/ext/watchlist/Tests/Fixtures/Sites' => 'typo3conf/sites',
     ];
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->setUpBackendUserFromFixture(1);
-
-        $this->importCSVDataSet(__DIR__ . '/Fixtures/BasicDatabase.csv');
-        $this->setUpFrontendRootPage(1, [
-            'EXT:watchlist/Tests/Functional/Frontend/Fixtures/FrontendRendering.typoscript',
-            'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript',
-        ]);
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/BasicDatabase.csv');
     }
 
     /**
@@ -83,14 +78,14 @@ class BasicsTest extends FunctionalTestCase
         $result = $this->executeFrontendRequest($request);
 
         self::assertIsRedirect('http://localhost/?id=1', $result);
-        self::assertHasCookie('fe_typo_user', $result);
+        self::assertCookie('page-1', $this->getCookie($result));
 
         $request = new InternalRequest();
         $request = $request->withPageId(1);
-        $request = $request->withHeader('Cookie', self::getCookies($result));
+        $request = $request->withHeader('Cookie', 'watchlist=page-1');
         $result = $this->executeFrontendRequest($request);
 
-        self::assertStringContainsString('Page Title', $result->getBody()->__toString());
+        self::assertStringContainsString('<li>Page Title</li>', $result->getBody()->__toString());
     }
 
     /**
@@ -105,10 +100,10 @@ class BasicsTest extends FunctionalTestCase
         $request = $request->withQueryParameter('tx_watchlist_watchlist[item]', 'page-1');
         $result = $this->executeFrontendRequest($request);
 
-        $cookies = self::getCookies($result);
+        self::assertCookie('page-1', $this->getCookie($result));
 
         $request = new InternalRequest();
-        $request = $request->withHeader('Cookie', $cookies);
+        $request = $request->withHeader('Cookie', 'watchlist=page-1');
         $request = $request->withPageId(1);
         $request = $request->withQueryParameter('tx_watchlist_watchlist[redirectUri]', $request->getUri()->__toString());
         $request = $request->withQueryParameter('tx_watchlist_watchlist[action]', 'remove');
@@ -116,9 +111,11 @@ class BasicsTest extends FunctionalTestCase
         $result = $this->executeFrontendRequest($request);
 
         self::assertIsRedirect('http://localhost/?id=1', $result);
+        $cookie = $this->getCookie($result);
+        self::assertInstanceOf(Cookie::class, $cookie);
+        self::assertLessThan(time(), $cookie->getExpiresTime());
 
         $request = new InternalRequest();
-        $request = $request->withHeader('Cookie', $cookies);
         $request = $request->withPageId(1);
         $result = $this->executeFrontendRequest($request);
 
@@ -132,13 +129,24 @@ class BasicsTest extends FunctionalTestCase
         self::assertSame($redirectLocation, $result->getHeader('location')[0] ?? '');
     }
 
-    private static function assertHasCookie(string $cookieName, InternalResponse $result): void
+    private static function assertCookie(string $value, ?Cookie $cookie): void
     {
-        self::assertStringContainsString($cookieName . '=', self::getCookies($result));
+        self::assertInstanceOf(Cookie::class, $cookie);
+        self::assertSame('watchlist', $cookie->getName());
+        self::assertSame('page-1', $cookie->getValue());
+        self::assertNull($cookie->getDomain());
+        self::assertSame('/typo3/', $cookie->getPath());
+        self::assertSame('strict', $cookie->getSameSite());
+        self::assertFalse($cookie->isSecure());
     }
 
-    private static function getCookies(InternalResponse $result): string
+    private function getCookie(InternalResponse $result): ?Cookie
     {
-        return explode(' ', $result->getHeader('Set-Cookie')[0] ?? '', 2)[0] ?? '';
+        $cookie = $result->getHeader('Set-Cookie')[0] ?? '';
+        if ($cookie === '') {
+            return null;
+        }
+
+        return Cookie::fromString($cookie);
     }
 }

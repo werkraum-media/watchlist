@@ -23,25 +23,33 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Session;
 
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use WerkraumMedia\Watchlist\Domain\Model\Item;
 use WerkraumMedia\Watchlist\Domain\Model\Watchlist;
 
-class Typo3FrontendSessionService implements SessionServiceInterface
+class CookieSessionService implements SessionServiceInterface
 {
     private PropertyMapper $propertyMapper;
 
-    public function __construct(
-        PropertyMapper $propertyMapper
-    ) {
+    private array $watchlists = [];
+
+    // Seems to be a bug leading to different instances if we use constructor.
+    public function injectPropertyMapper(PropertyMapper $propertyMapper): void
+    {
         $this->propertyMapper = $propertyMapper;
     }
 
     public function getWatchlist(string $identifier): ?Watchlist
     {
-        $items = $this->getTsfe()->fe_user->getSessionData('watchlist-' . $identifier) ?: [];
-        if ($items === [] || is_array($items) === false) {
+        $cookieName = $this->getCookieName();
+        $cookie = $this->getRequest()->getCookieParams()[$cookieName] ?? '';
+        $items = array_filter(explode(
+            ',',
+            $this->getRequest()->getCookieParams()['watchlist'] ?? ''
+        ));
+
+        if ($items === []) {
             return null;
         }
 
@@ -61,13 +69,24 @@ class Typo3FrontendSessionService implements SessionServiceInterface
 
     public function update(Watchlist $watchlist): void
     {
-        $this->getTsfe()->fe_user->setAndSaveSessionData(
-            'watchlist-' . $watchlist->getIdentifier(),
-            array_map(fn (Item $item) => $item->getUniqueIdentifier(), $watchlist->getItems())
+        $this->watchlists[$watchlist->getIdentifier()] = array_map(
+            fn (Item $item) => $item->getUniqueIdentifier(),
+            $watchlist->getItems()
         );
     }
-    private function getTsfe(): TypoScriptFrontendController
+
+    public function getCookieName(): string
     {
-        return $GLOBALS['TSFE'];
+        return 'watchlist';
+    }
+
+    public function getCookieValue(): string
+    {
+        return implode(',', $this->watchlists['default'] ?? []);
+    }
+
+    private function getRequest(): ServerRequest
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }

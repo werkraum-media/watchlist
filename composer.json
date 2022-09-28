@@ -36,6 +36,8 @@
         "typo3/cms-frontend": "^11.5"
     },
     "require-dev": {
+        "codeception/codeception": "^4.2",
+        "codeception/module-webdriver": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "friendsofphp/php-cs-fixer": "^3.11",
         "phpstan/extension-installer": "^1.1",
@@ -59,22 +61,20 @@
     },
     "extra": {
         "typo3/cms": {
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "app-dir": ".Build",
             "extension-key": "watchlist",
-            "web-dir": "public"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "@php -r 'is_dir($extFolder=__DIR__.\"/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
-            "@php -r 'file_exists($extFolder=__DIR__.\"/public/typo3conf/ext/watchlist\") || symlink(__DIR__,$extFolder);'"
-        ]
-    },
-    "extra": {
+            "web-dir": ".Build/web"
+        },
         "patches": {
             "typo3/testing-framework": {
                 "Support cookies in request": "patches/testing-framework-cookies.patch"
             }
         }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/web/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
+            "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/web/typo3conf/ext/watchlist\") || symlink(__DIR__,$extFolder);'"
+        ]
     }
 }
