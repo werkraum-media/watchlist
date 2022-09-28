@@ -10,7 +10,12 @@
         <f:else>
             <ol>
                 <f:for each="{watchlist.items}" as="item">
-                    <li>{item.title}</li>
+                    <li>
+                        {item.title}
+                        <f:if condition="{item.image}">
+                            <f:image image="{item.image}" />
+                        </f:if>
+                    </li>
                 </f:for>
             </ol>
         </f:else>

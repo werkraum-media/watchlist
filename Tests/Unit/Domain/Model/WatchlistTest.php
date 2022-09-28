@@ -63,7 +63,7 @@ class WatchlistTest extends TestCase
     {
         $subject = new Watchlist();
 
-        $thing = new Page(1, 'test');
+        $thing = new Page(1, 'test', null);
         $subject->addItem($thing);
 
         self::assertCount(1, $subject->getItems());
@@ -77,7 +77,7 @@ class WatchlistTest extends TestCase
     {
         $subject = new Watchlist();
 
-        $thing = new Page(1, 'test');
+        $thing = new Page(1, 'test', null);
         $subject->addItem($thing);
 
         $subject->removeItem($thing);

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Domain\Items\Page;
 
+use TYPO3\CMS\Core\Resource\FileInterface;
 use WerkraumMedia\Watchlist\Domain\Model\Item;
 
 class Page implements Item
@@ -31,12 +32,16 @@ class Page implements Item
 
     private string $title;
 
+    private ?FileInterface $image;
+
     public function __construct(
         int $pageUid,
-        string $title
+        string $title,
+        ?FileInterface $image
     ) {
         $this->pageUid = $pageUid;
         $this->title = $title;
+        $this->image = $image;
     }
 
     public function getUniqueIdentifier(): string
@@ -47,5 +52,10 @@ class Page implements Item
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getImage(): ?FileInterface
+    {
+        return $this->image;
     }
 }
