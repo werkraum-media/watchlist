@@ -1,22 +1,9 @@
 base: /
 languages:
   -
-    title: Deutsch
-    enabled: true
-    base: /
-    typo3Language: de
-    locale: de_DE.UTF-8
-    iso-639-1: de
-    navigationTitle: Deutsch
-    hreflang: de-DE
-    direction: ''
-    flag: de
-    websiteTitle: ''
-    languageId: 0
-  -
     title: English
     enabled: true
-    base: /en
+    base: /
     typo3Language: default
     locale: en_GB.UTF-8
     iso-639-1: en
@@ -25,8 +12,21 @@ languages:
     hreflang: en-GB
     direction: ''
     flag: gb
-    languageId: 1
+    languageId: 0
     fallbackType: strict
     fallbacks: '0'
+  -
+    title: Deutsch
+    enabled: true
+    base: /de
+    typo3Language: de
+    locale: de_DE.UTF-8
+    iso-639-1: de
+    navigationTitle: Deutsch
+    hreflang: de-DE
+    direction: ''
+    flag: de
+    websiteTitle: ''
+    languageId: 1
 rootPageId: 1
 websiteTitle: 'Example Website'

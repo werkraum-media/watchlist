@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="messages" date="2022-09-26T10:43:30Z" product-name="Watchlist">
+    <file target-language="de" source-language="en" datatype="plaintext" original="messages" date="2022-09-26T10:43:30Z" product-name="Watchlist">
         <header/>
         <body>
             <trans-unit id="headline.index" xml:space="preserve">
                 <source>Watchlist</source>
+                <target>Merkliste</target>
             </trans-unit>
             <trans-unit id="text.watchlist.isEmpty" xml:space="preserve">
                 <source>Watchlist is empty</source>
+                <target>Merkliste ist leer</target>
             </trans-unit>
             <trans-unit id="tt_content.watchlist_watchlist.title" xml:space="preserve">
                 <source>Watchlist</source>
+                <target>Merkliste</target>
             </trans-unit>
             <trans-unit id="tt_content.watchlist_watchlist.description" xml:space="preserve">
                 <source>Content element to show Watchlist items</source>
+                <target>Inhaltselement zur Darstellung von Merklisteneinträgen</target>
             </trans-unit>
         </body>
     </file>
