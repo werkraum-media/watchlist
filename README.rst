@@ -61,6 +61,18 @@ The Handler needs to be registered via Symfony Tags, e.g. via ``Services.yaml``:
 
 The class needs to implement the ``WerkraumMedia\Watchlist\Domain\Model\Item``.
 
+Example
+-------
+
+The extension delivers an example implementation for testing purposes, check out:
+
+- ``Classes/Domain/Items/Page/ItemHandler.php``
+
+- ``Classes/Domain/Items/Page/Page.php``
+
+The example demonstrates how to fetch information from database,
+including file references.
+
 JavaScript
 ==========
 

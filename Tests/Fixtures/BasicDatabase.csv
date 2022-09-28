@@ -1,8 +1,14 @@
-"pages",,,,,,
-,"uid","pid","slug","title",,
-,1,0,"/","Page Title",,
-,2,1,"/page-2","Page 2 Title",,
-"sys_template",,,,,,
-,"uid","pid","root","clear","constants","config"
+"pages",,,,,,,,,,,,,,
+,"uid","pid","slug","title",,,,,,,,,,
+,1,0,"/","Page Title",,,,,,,,,,
+,2,1,"/page-2","Page 2 Title",,,,,,,,,,
+"sys_template",,,,,,,,,,,,,,
+,"uid","pid","root","clear","constants","config",,,,,,,,
 ,1,1,1,3,"databasePlatform = mysql","<INCLUDE_TYPOSCRIPT: source=""FILE:EXT:watchlist/Tests/Fixtures/FrontendRendering.typoscript"">
-<INCLUDE_TYPOSCRIPT: source=""FILE:EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript"">"
+<INCLUDE_TYPOSCRIPT: source=""FILE:EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript"">",,,,,,,,
+"sys_file",,,,,,,,,,,,,,
+,"uid","pid","missing","storage","type","metadata","identifier","identifier_hash","folder_hash","extension","mime_type","name","sha1","size"
+,1,0,0,1,2,0,"/Files/FirstResult.png","29b827d0daa29658d8a0d952dfd20f559bbe3bcf","86d12d536195df2100a5ec04ab80c08f9bed3d31","png","image/png","FirstResult.png","b13f2bbf275d592534eab659c1430c2702ce31fc",42383
+"sys_file_reference",,,,,,,,,,,,,,
+,"uid","pid","uid_local","uid_foreign","tablenames","fieldname","sorting_foreign","table_local",,,,,,
+,1,1,1,1,"pages","media",1,"sys_file",,,,,,

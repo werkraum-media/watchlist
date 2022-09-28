@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace WerkraumMedia\Watchlist\Domain\Items\Page;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
 use WerkraumMedia\Watchlist\Domain\ItemHandlerInterface;
 use WerkraumMedia\Watchlist\Domain\Model\Item;
 
@@ -31,10 +33,14 @@ class ItemHandler implements ItemHandlerInterface
 {
     private ConnectionPool $connectionPool;
 
+    private FileRepository $fileRepository;
+
     public function __construct(
-        ConnectionPool $connectionPool
+        ConnectionPool $connectionPool,
+        FileRepository $fileRepository
     ) {
         $this->connectionPool = $connectionPool;
+        $this->fileRepository = $fileRepository;
     }
 
     public function return(string $identifier): ?Item
@@ -44,7 +50,8 @@ class ItemHandler implements ItemHandlerInterface
 
         return new Page(
             $pageUid,
-            (string)$pageRecord['title']
+            (string)$pageRecord['title'],
+            $this->getImage($pageUid)
         );
     }
 
@@ -61,5 +68,10 @@ class ItemHandler implements ItemHandlerInterface
         $qb->where($qb->expr()->eq('uid', $qb->createNamedParameter($uid)));
         $qb->setMaxResults(1);
         return $qb->execute()->fetchAssociative() ?: [];
+    }
+
+    private function getImage(int $uid): ?FileReference
+    {
+        return $this->fileRepository->findByRelation('pages', 'media', $uid)[0] ?? null;
     }
 }

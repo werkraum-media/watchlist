@@ -43,6 +43,7 @@ class BasicsTest extends FunctionalTestCase
 
     protected $pathsToLinkInTestInstance = [
         'typo3conf/ext/watchlist/Tests/Fixtures/Sites' => 'typo3conf/sites',
+        'typo3conf/ext/watchlist/Tests/Fixtures/Fileadmin/Files' => 'fileadmin/Files',
     ];
 
     protected function setUp(): void
@@ -85,7 +86,8 @@ class BasicsTest extends FunctionalTestCase
         $request = $request->withHeader('Cookie', 'watchlist=page-1');
         $result = $this->executeFrontendRequest($request);
 
-        self::assertStringContainsString('<li>Page Title</li>', $result->getBody()->__toString());
+        self::assertMatchesRegularExpression('#<li>\s*Page Title#', $result->getBody()->__toString());
+        self::assertStringContainsString('<img src="/fileadmin/Files/FirstResult.png" width="" height="" alt="" />', $result->getBody()->__toString());
     }
 
     /**
