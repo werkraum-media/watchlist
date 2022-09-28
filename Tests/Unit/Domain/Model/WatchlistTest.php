@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace WerkraumMedia\Watchlist\Tests\Unit\Domain\Model;
 
 use PHPUnit\Framework\TestCase;
-use WerkraumMedia\Watchlist\Domain\Items\Page\Page;
 use WerkraumMedia\Watchlist\Domain\Model\Watchlist;
+use WerkraumMedia\WatchlistExample\Page;
 
 /**
  * @covers \WerkraumMedia\Watchlist\Domain\Model\Watchlist

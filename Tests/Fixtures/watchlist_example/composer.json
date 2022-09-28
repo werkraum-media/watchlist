@@ -1,0 +1,14 @@
+{
+    "name": "werkraummedia/watchlist_example",
+    "description": "Add a watchlist to frontend of TYPO3",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "werkraummedia/watchlist": "*"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "watchlist_example"
+        }
+    }
+}

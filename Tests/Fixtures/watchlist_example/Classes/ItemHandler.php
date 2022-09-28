@@ -21,7 +21,7 @@ declare(strict_types=1);
  * 02110-1301, USA.
  */
 
-namespace WerkraumMedia\Watchlist\Domain\Items\Page;
+namespace WerkraumMedia\WatchlistExample;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\FileReference;

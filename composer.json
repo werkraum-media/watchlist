@@ -25,7 +25,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WerkraumMedia\\Watchlist\\Tests\\": "Tests/"
+            "WerkraumMedia\\Watchlist\\Tests\\": "Tests/",
+            "WerkraumMedia\\WatchlistExample\\": "Tests/Fixtures/watchlist_example/Classes/"
         }
     },
     "require": {

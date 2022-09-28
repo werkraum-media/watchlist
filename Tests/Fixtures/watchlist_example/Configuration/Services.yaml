@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  WerkraumMedia\WatchlistExample\:
+    resource: '../Classes/*'
+
+  WerkraumMedia\WatchlistExample\ItemHandler:
+    tags: ['watchlist.itemHandler']

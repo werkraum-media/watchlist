@@ -47,6 +47,7 @@ class Environment extends BackendEnvironment
         ],
         'testExtensionsToLoad' => [
             'typo3conf/ext/watchlist',
+            'typo3conf/ext/watchlist/Tests/Fixtures/watchlist_example',
         ],
         'csvDatabaseFixtures' => [
             __DIR__ . '/../../Fixtures/BasicDatabase.csv',
