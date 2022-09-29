@@ -1,0 +1,10 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:form/Configuration/TypoScript/setup.typoscript">
+
+plugin.tx_form.settings.yamlConfigurations {
+    80 = EXT:watchlist/Configuration/Form/Setup.yaml
+    90 = EXT:watchlist_example/Configuration/Forms/Setup.yaml
+}
+
+page >
+page = PAGE
+page.10 =< styles.content.get

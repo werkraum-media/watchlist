@@ -1,0 +1,8 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Watchlist:
+              implementationClassName: WerkraumMedia\Watchlist\Form\FormElements\WatchlistFormElement

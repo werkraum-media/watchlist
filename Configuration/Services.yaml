@@ -12,3 +12,6 @@ services:
   WerkraumMedia\Watchlist\Session\CookieSessionService:
     # Has state and needs to be shared in order to provide this state to middleware
     shared: true
+
+  WerkraumMedia\Watchlist\Form\Hook\BeforeRenderingHook:
+    public: true

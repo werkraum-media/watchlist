@@ -1,0 +1,31 @@
+renderingOptions:
+  submitButtonLabel: Submit
+type: Form
+identifier: test
+label: Test
+prototypeName: standard
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    type: Page
+    identifier: page-1
+    label: First Step
+    renderables:
+      -
+        type: Watchlist
+        identifier: watchlist-1
+        label: 'Watchlist'
+      -
+        defaultValue: ''
+        type: Text
+        identifier: text-1
+        label: 'Example text field'
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    type: SummaryPage
+    identifier: summarypage-1
+    label: 'Summary step'
