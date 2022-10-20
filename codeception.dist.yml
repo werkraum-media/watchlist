@@ -1,21 +1,20 @@
-namespace: WerkraumMedia\Watchlist\Tests\Acceptance\Support
+namespace: 'WerkraumMedia\Watchlist\Tests\Acceptance\Support'
 
 paths:
-  tests: Tests/Acceptance
-  data: Tests/Acceptance/Data
-  output: .Build/web/typo3temp/var/tests/AcceptanceReports
-  support: Tests/Acceptance/Support
-
-extensions:
-  enabled:
-    - Codeception\Extension\RunFailed
+  tests: 'Tests/Acceptance'
+  data: 'Tests/Acceptance/Data'
+  output: '.Build/web/typo3temp/var/tests/AcceptanceReports'
+  support: 'Tests/Acceptance/Support'
 
 suites:
   acceptance:
-    actor: AcceptanceTester
-    path: .
+    actor: 'AcceptanceTester'
+    path: '.'
     extensions:
       enabled:
+        - 'Codeception\Extension\RunProcess':
+            - 'geckodriver > Tests/Acceptance/_output/geckodriver.log 2>&1'
+            - 'TYPO3_PATH_APP="$INSTANCE_PATH" TYPO3_PATH_ROOT="$INSTANCE_PATH" php -S 127.0.0.1:8080 -t "$INSTANCE_PATH" > Tests/Acceptance/_output/php.log 2>&1'
         - WerkraumMedia\Watchlist\Tests\Acceptance\Support\Environment:
             typo3DatabaseUsername: 'testing'
             typo3DatabasePassword: 'testing'

@@ -59,22 +59,10 @@ let
     text = ''
       project-install
 
-      _instance_path="$PROJECT_ROOT/.Build/web/typo3temp/var/tests/acceptance/"
+      export INSTANCE_PATH="$PROJECT_ROOT/.Build/web/typo3temp/var/tests/acceptance/"
 
-      mkdir -p "$_instance_path"
-
-      geckodriver > /dev/null 2>&1 &
-      _pid_geckodriver=$!
-
-      TYPO3_PATH_APP="$_instance_path" \
-        TYPO3_PATH_ROOT="$_instance_path" \
-        php -S 127.0.0.1:8080 -t "$_instance_path" > /dev/null 2>&1 &
-      _pid_php=$!
-
-      ./vendor/bin/codecept build
+      mkdir -p "$INSTANCE_PATH"
       ./vendor/bin/codecept run
-
-      kill "$_pid_geckodriver" "$_pid_php"
     '';
   };
 
