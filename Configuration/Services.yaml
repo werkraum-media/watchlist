@@ -8,6 +8,7 @@ services:
     resource: '../Classes/*'
     exclude:
       - '../Classes/Domain/Model/*'
+      - '../Classes/Extbase/TypeConverter/*'
 
   WerkraumMedia\Watchlist\Session\CookieSessionService:
     # Has state and needs to be shared in order to provide this state to middleware
@@ -15,3 +16,17 @@ services:
 
   WerkraumMedia\Watchlist\Form\Hook\BeforeRenderingHook:
     public: true
+
+  WerkraumMedia\Watchlist\Extbase\TypeConverter\ItemTypeConverter:
+    tags:
+      - name: 'extbase.type_converter'
+        priority: 10
+        target: 'WerkraumMedia\Watchlist\Domain\Model\Item'
+        sources: 'string'
+
+  WerkraumMedia\Watchlist\Extbase\TypeConverter\WatchlistTypeConverter:
+    tags:
+      - name: 'extbase.type_converter'
+        priority: 10
+        target: 'WerkraumMedia\Watchlist\Domain\Model\Watchlist'
+        sources: 'string'

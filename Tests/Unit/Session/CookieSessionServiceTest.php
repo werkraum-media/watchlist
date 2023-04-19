@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Tests\Unit\Session;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use WerkraumMedia\Watchlist\Session\CookieSessionService;
 
-/**
- * @covers \WerkraumMedia\Watchlist\Session\CookieSessionService
- */
+#[CoversClass(CookieSessionService::class)]
 final class CookieSessionServiceTest extends TestCase
 {
     protected function tearDown(): void
@@ -39,9 +39,7 @@ final class CookieSessionServiceTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function returnsCookieValueFromCurrentRequest(): void
     {
         $request = self::createStub(ServerRequest::class);

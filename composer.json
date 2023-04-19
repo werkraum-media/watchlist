@@ -30,26 +30,24 @@
         }
     },
     "require": {
-        "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
-        "typo3/cms-backend": "^11.5",
-        "typo3/cms-core": "^11.5",
-        "typo3/cms-extbase": "^11.5",
-        "typo3/cms-frontend": "^11.5"
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
+        "typo3/cms-backend": "^12.4",
+        "typo3/cms-core": "^12.4",
+        "typo3/cms-extbase": "^12.4",
+        "typo3/cms-fluid-styled-content": "^12.4",
+        "typo3/cms-form": "^12.4",
+        "typo3/cms-frontend": "^12.4"
     },
     "require-dev": {
-        "codeception/codeception": "^4.2",
-        "codeception/module-webdriver": "^2.0",
-        "cweagans/composer-patches": "^1.7",
+        "codeception/codeception": "^5.0",
+        "codeception/module-webdriver": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.11",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "1.1.0",
+        "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "saschaegerer/phpstan-typo3": "^1.1",
-        "typo3/cms-fluid-styled-content": "^11.5",
-        "typo3/cms-form": "^11.5",
-        "typo3/cms-tstemplate": "^11.5",
-        "typo3/testing-framework": "^6.6"
+        "phpunit/phpunit": "^10.5 || ^11.5",
+        "saschaegerer/phpstan-typo3": "^1.8",
+        "typo3/testing-framework": "^8.0"
     },
     "config": {
         "sort-packages": true,
@@ -58,20 +56,13 @@
             "typo3/cms-composer-installers": true,
             "typo3/class-alias-loader": true,
             "ocramius/package-versions": true,
-            "phpstan/extension-installer": true,
-            "cweagans/composer-patches": true
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
         "typo3/cms": {
-            "app-dir": ".Build",
             "extension-key": "watchlist",
             "web-dir": ".Build/web"
-        },
-        "patches": {
-            "typo3/testing-framework": {
-                "Support cookies in request": "patches/testing-framework-cookies.patch"
-            }
         }
     },
     "scripts": {

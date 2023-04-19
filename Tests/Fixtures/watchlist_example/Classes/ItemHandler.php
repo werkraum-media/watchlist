@@ -67,7 +67,7 @@ class ItemHandler implements ItemHandlerInterface
         $qb->from('pages');
         $qb->where($qb->expr()->eq('uid', $qb->createNamedParameter($uid)));
         $qb->setMaxResults(1);
-        return $qb->execute()->fetchAssociative() ?: [];
+        return $qb->executeQuery()->fetchAssociative() ?: [];
     }
 
     private function getImage(int $uid): ?FileReference
