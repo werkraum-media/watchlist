@@ -1,14 +1,11 @@
 parameters:
-    level: max
-    paths:
-        - Classes
-        - Configuration
-        - Tests
-    excludePaths:
-      - Tests/Acceptance/Support/_generated/
-    checkMissingIterableValueType: false
-    reportUnmatchedIgnoredErrors: true
-    checkGenericClassInNonGenericObjectType: false
-    ignoreErrors:
-      - "#^Cannot call method fetchAssociative\\(\\) on Doctrine\\\\DBAL\\\\Result\\|int\\.$#"
-      - "#^Right side of \\|\\| is always false\\.$#"
+  level: 'max'
+  paths:
+    - 'Classes'
+    - 'Configuration'
+    - 'Tests'
+  excludePaths:
+    - 'Tests/Acceptance/Support/_generated/'
+  reportUnmatchedIgnoredErrors: true
+  ignoreErrors:
+    - identifier: 'missingType.iterableValue'

@@ -48,7 +48,7 @@ class WatchlistTypeConverter extends AbstractTypeConverter
         $source,
         string $targetType,
         array $convertedChildProperties = [],
-        PropertyMappingConfigurationInterface $configuration = null
+        ?PropertyMappingConfigurationInterface $configuration = null
     ): ?Watchlist {
         if (is_string($source) === false) {
             throw new \InvalidArgumentException('Source was not of expected type string.', 1664197358);

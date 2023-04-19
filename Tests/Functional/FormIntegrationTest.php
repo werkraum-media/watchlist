@@ -23,44 +23,44 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Tests\Functional;
 
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class FormIntegrationTest extends FunctionalTestCase
 {
-    protected $coreExtensionsToLoad = [
-        'fluid_styled_content',
-        'form',
-        'tstemplate',
-    ];
-
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/watchlist',
-        'typo3conf/ext/watchlist/Tests/Fixtures/watchlist_example',
-    ];
-
-    protected $pathsToLinkInTestInstance = [
-        'typo3conf/ext/watchlist/Tests/Fixtures/Sites' => 'typo3conf/sites',
-        'typo3conf/ext/watchlist/Tests/Fixtures/Fileadmin/Files' => 'fileadmin/Files',
-    ];
-
     protected function setUp(): void
     {
+        $this->coreExtensionsToLoad = [
+            'typo3/cms-fluid-styled-content',
+            'typo3/cms-form',
+        ];
+
+        $this->testExtensionsToLoad = [
+            'werkraummedia/watchlist',
+            'typo3conf/ext/watchlist/Tests/Fixtures/watchlist_example',
+        ];
+
+        $this->pathsToLinkInTestInstance = [
+            'typo3conf/ext/watchlist/Tests/Fixtures/Sites' => 'typo3conf/sites',
+            'typo3conf/ext/watchlist/Tests/Fixtures/Fileadmin/Files' => 'fileadmin/Files',
+        ];
+
         parent::setUp();
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/BasicDatabase.csv');
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/FormDatabase.csv');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function rendersWatchlistItemsIntoForm(): void
     {
         $request = new InternalRequest();
         $request = $request->withPageId(2);
-        $request = $request->withHeader('Cookie', 'watchlist=page-1,page-2');
-        $result = $this->executeFrontendRequest($request);
+        $request = $request->withCookieParams([
+            'watchlist' => 'page-1,page-2',
+        ]);
+        $result = $this->executeFrontendSubRequest($request);
 
         self::assertSame(200, $result->getStatusCode());
         $html = $result->getBody()->__toString();
@@ -71,14 +71,12 @@ class FormIntegrationTest extends FunctionalTestCase
         self::assertStringContainsString('value="Page: Page 2 Title"', $html);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function doesntRenderFormElementForZeroItems(): void
     {
         $request = new InternalRequest();
         $request = $request->withPageId(2);
-        $result = $this->executeFrontendRequest($request);
+        $result = $this->executeFrontendSubRequest($request);
 
         self::assertSame(200, $result->getStatusCode());
         $html = $result->getBody()->__toString();

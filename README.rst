@@ -159,6 +159,13 @@ The content element is not necessary.
 Changelog
 =========
 
+v2.0.0
+------
+
+* Add Support for TYPO3 v12 and PHP 8.4.
+
+* Drop Support for TYPO3 v11 and PHP versions not supported by TYPO3 v12.
+
 v1.1.0
 ------
 

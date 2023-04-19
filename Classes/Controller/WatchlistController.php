@@ -44,7 +44,7 @@ class WatchlistController extends ActionController
     protected function initializeAction(): void
     {
         if ($this->request->hasArgument('watchlist') === false) {
-            $this->request->setArgument('watchlist', 'default');
+            $this->request = $this->request->withArgument('watchlist', 'default');
         }
     }
 

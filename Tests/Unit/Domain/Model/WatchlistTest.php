@@ -23,19 +23,18 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Tests\Unit\Domain\Model;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use WerkraumMedia\Watchlist\Domain\Model\Watchlist;
 use WerkraumMedia\WatchlistExample\Page;
 
-/**
- * @covers \WerkraumMedia\Watchlist\Domain\Model\Watchlist
- * @testdox The Watchlist
- */
+#[CoversClass(Watchlist::class)]
+#[TestDox('The Watchlist')]
 class WatchlistTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function canBeCreated(): void
     {
         $subject = new Watchlist();
@@ -46,9 +45,7 @@ class WatchlistTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function doesNotHaveItemsByDefault(): void
     {
         $subject = new Watchlist();
@@ -56,9 +53,7 @@ class WatchlistTest extends TestCase
         self::assertCount(0, $subject->getItems());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canAddAItem(): void
     {
         $subject = new Watchlist();
@@ -70,9 +65,7 @@ class WatchlistTest extends TestCase
         self::assertSame($thing, $subject->getItems()[0]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canRemoveAItem(): void
     {
         $subject = new Watchlist();

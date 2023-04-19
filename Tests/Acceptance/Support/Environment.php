@@ -37,7 +37,6 @@ class Environment extends BackendEnvironment
      */
     protected $localConfig = [
         'coreExtensionsToLoad' => [
-            'install',
             'core',
             'backend',
             'extbase',
@@ -58,7 +57,7 @@ class Environment extends BackendEnvironment
             'config',
         ],
         'pathsToLinkInTestInstance' => [
-            'typo3conf/ext/watchlist/Tests/Fixtures/Sites/' => 'config/sites',
+            'typo3conf/ext/watchlist/Tests/Fixtures/Sites/' => 'typo3conf/sites',
         ],
     ];
 }
