@@ -1,21 +1,25 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
+  php = pkgs.php82;
+  inherit(pkgs.php81Packages) composer;
+
   projectInstall = pkgs.writeShellApplication {
     name = "project-install";
     runtimeInputs = [
-      pkgs.php81
-      pkgs.php81Packages.composer
+      php
+      composer
     ];
     text = ''
+      rm -rf .Build/ vendor/
       composer install --prefer-dist --no-progress --working-dir="$PROJECT_ROOT"
     '';
   };
   projectValidateComposer = pkgs.writeShellApplication {
     name = "project-validate-composer";
     runtimeInputs = [
-      pkgs.php81
-      pkgs.php81Packages.composer
+      php
+      composer
     ];
     text = ''
       composer validate
@@ -39,7 +43,7 @@ let
   projectCodingGuideline = pkgs.writeShellApplication {
     name = "project-coding-guideline";
     runtimeInputs = [
-      pkgs.php81
+      php
       projectInstall
     ];
     text = ''
@@ -54,12 +58,12 @@ let
       pkgs.sqlite
       pkgs.firefox
       pkgs.geckodriver
-      pkgs.php81
+      php
     ];
     text = ''
       project-install
 
-      export INSTANCE_PATH="$PROJECT_ROOT/.Build/web/typo3temp/var/tests/acceptance/"
+      export INSTANCE_PATH="$PROJECT_ROOT/.Build/web/typo3temp/var/tests/acceptance"
 
       mkdir -p "$INSTANCE_PATH"
       ./vendor/bin/codecept run
@@ -73,6 +77,8 @@ in pkgs.mkShell {
     projectValidateXml
     projectCodingGuideline
     projectTestAcceptance
+    php
+    composer
   ];
 
   shellHook = ''
