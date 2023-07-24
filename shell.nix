@@ -1,11 +1,13 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
+  php = pkgs.php81;
+  composer = pkgs.php81Packages.composer;
+
   projectInstall = pkgs.writeShellApplication {
     name = "project-install";
     runtimeInputs = [
-      pkgs.php81
-      pkgs.php81Packages.composer
+      composer
     ];
     text = ''
       composer install --prefer-dist --no-progress --working-dir="$PROJECT_ROOT"
@@ -14,8 +16,7 @@ let
   projectValidateComposer = pkgs.writeShellApplication {
     name = "project-validate-composer";
     runtimeInputs = [
-      pkgs.php81
-      pkgs.php81Packages.composer
+      composer
     ];
     text = ''
       composer validate
@@ -39,7 +40,7 @@ let
   projectCodingGuideline = pkgs.writeShellApplication {
     name = "project-coding-guideline";
     runtimeInputs = [
-      pkgs.php81
+      php
       projectInstall
     ];
     text = ''
@@ -54,7 +55,7 @@ let
       pkgs.sqlite
       pkgs.firefox
       pkgs.geckodriver
-      pkgs.php81
+      php
     ];
     text = ''
       project-install
@@ -69,6 +70,9 @@ let
 in pkgs.mkShell {
   name = "TYPO3 Extension Watchlist";
   buildInputs = [
+    php
+    composer
+    projectInstall
     projectValidateComposer
     projectValidateXml
     projectCodingGuideline
