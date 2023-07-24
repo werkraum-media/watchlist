@@ -44,6 +44,16 @@ class BasicsTest extends FunctionalTestCase
         'typo3conf/ext/watchlist/Tests/Fixtures/Fileadmin/Files' => 'fileadmin/Files',
     ];
 
+    protected $configurationToUseInTestInstance = [
+        'FE' => [
+            'cacheHash' => [
+                'excludedParameters' => [
+                    '^tx_watchlist_watchlist[',
+                ],
+            ],
+        ],
+    ];
+
     protected function setUp(): void
     {
         parent::setUp();
