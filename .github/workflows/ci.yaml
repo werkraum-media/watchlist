@@ -24,6 +24,8 @@ jobs:
           - 7.4
           - 8.0
           - 8.1
+          - 8.2
+          - 8.3
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -70,6 +72,8 @@ jobs:
           - php-version: '7.4'
           - php-version: '8.0'
           - php-version: '8.1'
+          - php-version: '8.2'
+          - php-version: '8.3'
     steps:
       - uses: actions/checkout@v3
 
@@ -96,6 +100,8 @@ jobs:
           - php-version: '7.4'
           - php-version: '8.0'
           - php-version: '8.1'
+          - php-version: '8.2'
+          - php-version: '8.3'
     steps:
       - uses: actions/checkout@v3
 
