@@ -13,14 +13,18 @@ connect whatever they want to be a thing that can be added to the watchlist.
 Feature set
 ===========
 
-The extension provides an controller with actions to add and remove items from watchlist.
-Each item can only exist once within the watchlist.
+The extension provides an controller with actions to add and remove items from watchlists.
+Each item can only exist once within each watchlist.
 
-There is also an action to show the current watchlist.
+There is also an action to show a watchlist.
 
-The extension ships with support for items of type ``pages``,
-but this is more a demonstration an used for testing.
+The extension has the concept of multiple watchlists if necessary,
+provide the watchlist identifier, it will fallback to "default".
+But the only storage implementation of cookie does not handle that concept yet.
+
+The extension does not ship with any out of the box support.
 Projects are way too different and should provide their own items, see "Custom Items".
+But an example is provided, see Example section below.
 
 The extension also provides a JavaScript which will parse data-Attributes of DOM and
 attach listener to add elements to the watchlist.
