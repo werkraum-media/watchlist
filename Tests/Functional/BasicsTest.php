@@ -145,7 +145,7 @@ class BasicsTest extends FunctionalTestCase
         self::assertSame('watchlist', $cookie->getName());
         self::assertSame('page-1', $cookie->getValue());
         self::assertNull($cookie->getDomain());
-        self::assertSame('/typo3/', $cookie->getPath());
+        self::assertSame('/', $cookie->getPath());
         self::assertSame('strict', $cookie->getSameSite());
         self::assertFalse($cookie->isSecure());
     }

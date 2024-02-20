@@ -97,11 +97,13 @@ class CookieSessionMiddleware implements MiddlewareInterface
             throw new \Exception('Could not retrieve normalized params from request.', 1664357339);
         }
 
+        $days = 7;
+
         return new Cookie(
             $this->cookieSession->getCookieName(),
             $this->cookieSession->getCookieValue(),
-            $GLOBALS['EXEC_TIME'] + 7776000, // 90 days
-            $normalizedParams->getSitePath() . TYPO3_mainDir,
+            $GLOBALS['EXEC_TIME'] + 24 * 60 * 60 * $days,
+            $normalizedParams->getSitePath(),
             '',
             false,
             false,

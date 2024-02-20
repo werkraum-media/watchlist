@@ -169,3 +169,17 @@ v1.0.1
 
   This is now fixed by properly calling the registerPlugin() method. That way extbase
   can find the CType definition and will add it as CType instead of list_type.
+
+* Fix broken cookie handling.
+
+  * For some reason we used the `/typo3/` path while storing cookies server side.
+    But we used `/` in JavaScript.
+    That didn't play together and was fixed to always be `/` for now, but it should be configurable in general.
+    The fix revealed that the detection of whether to store a cookie was broken, which was fixed within the corresponding service.
+
+  * Furthermore the dates how long the cookie should be stored was different.
+    We now always use 7 days.
+
+  * And we now properly encode the value of the cookie,
+    in order to prevent issues with special meanings like `;`.
+    This was already done on PHP side but not within JS.
