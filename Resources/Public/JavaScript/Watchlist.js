@@ -27,7 +27,7 @@
                 return [];
             }
 
-            return cookieValue.split(',');
+            return decodeURIComponent(cookieValue).split(',');
         },
         save: function(items) {
             var cookieValue = items.join(',');
@@ -35,7 +35,7 @@
             if (cookieValue == '') {
                 cookie.delete();
             } else {
-                cookie.set(items.join(','));
+                cookie.set(encodeURIComponent(items.join(',')));
             }
         },
         toggleItem: function(identifier) {

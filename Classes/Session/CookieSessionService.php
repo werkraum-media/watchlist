@@ -34,6 +34,14 @@ class CookieSessionService implements SessionServiceInterface
 
     private array $watchlists = [];
 
+    public function __construct(
+    ) {
+        $this->watchlists['default'] = array_filter(explode(
+            ',',
+            $this->getRequest()->getCookieParams()[$this->getCookieName()] ?? ''
+        ));
+    }
+
     // Seems to be a bug leading to different instances if we use constructor.
     public function injectPropertyMapper(PropertyMapper $propertyMapper): void
     {
@@ -42,13 +50,7 @@ class CookieSessionService implements SessionServiceInterface
 
     public function getWatchlist(string $identifier): ?Watchlist
     {
-        $cookieName = $this->getCookieName();
-        $cookie = $this->getRequest()->getCookieParams()[$cookieName] ?? '';
-        $items = array_filter(explode(
-            ',',
-            $this->getRequest()->getCookieParams()['watchlist'] ?? ''
-        ));
-
+        $items = $this->watchlists['default'];
         if ($items === []) {
             return null;
         }
