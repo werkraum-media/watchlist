@@ -151,3 +151,17 @@ Example
 A concrete example can be found within ``Tests/Fixtures/FrontendRendering.typoscript``.
 This example includes the provided JavaScript file as well as some custom CSS and Markup.
 The content element is not necessary.
+
+Changelog
+=========
+
+v1.0.1
+------
+
+* Fix broken registration of plugin as content element within TCA.
+  We used different cases for ExtensionName and PluginName while configuring and registering a plugin.
+  That lead to the issue that the plugin was also registered as list_type aka "Insert Plugin".
+  But there was no rendering definition. We manually added the CType registration.
+
+  This is now fixed by properly calling the registerPlugin() method. That way extbase
+  can find the CType definition and will add it as CType instead of list_type.

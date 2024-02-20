@@ -13,21 +13,10 @@ defined('TYPO3') || die();
     ]);
 
     ExtensionUtility::registerPlugin(
-        $extKey,
-        $extKey,
+        'Watchlist',
+        'Watchlist',
         $languagePath . 'title',
         'EXT:' . $extKey . '/Resources/Public/Icons/Extension.svg'
-    );
-
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
-        $table,
-        'CType',
-        [
-            $languagePath . 'title',
-            $contentType,
-            'content-bullets',
-            'special',
-        ]
     );
 
     \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($GLOBALS['TCA'][$table], [
