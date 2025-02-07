@@ -28,7 +28,7 @@ use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use WerkraumMedia\Watchlist\Domain\Model\Item;
 use WerkraumMedia\Watchlist\Domain\Model\Watchlist;
 
-class CookieSessionService implements SessionServiceInterface
+class CookieSessionService implements CookieSessionInterface, SessionServiceInterface
 {
     private PropertyMapper $propertyMapper;
 
