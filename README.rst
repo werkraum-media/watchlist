@@ -159,6 +159,14 @@ The content element is not necessary.
 Changelog
 =========
 
+v1.1.0
+------
+
+* Allow replacement of cookie implementation.
+  The implementation is now extracted into an interface.
+  That way it is easier to replace the concrete implementation for cookie handling
+  with a custom one.
+
 v1.0.1
 ------
 

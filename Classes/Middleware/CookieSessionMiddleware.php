@@ -29,14 +29,14 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use TYPO3\CMS\Core\Http\NormalizedParams;
-use WerkraumMedia\Watchlist\Session\CookieSessionService;
+use WerkraumMedia\Watchlist\Session\CookieSessionInterface;
 
 class CookieSessionMiddleware implements MiddlewareInterface
 {
-    private CookieSessionService $cookieSession;
+    private CookieSessionInterface $cookieSession;
 
     public function __construct(
-        CookieSessionService $cookieSession
+        CookieSessionInterface $cookieSession
     ) {
         $this->cookieSession = $cookieSession;
     }
