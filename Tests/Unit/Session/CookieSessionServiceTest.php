@@ -44,7 +44,7 @@ final class CookieSessionServiceTest extends TestCase
      */
     public function returnsCookieValueFromCurrentRequest(): void
     {
-        $request = $this->createStub(ServerRequest::class);
+        $request = self::createStub(ServerRequest::class);
         $request->method('getCookieParams')->willReturn([
             'watchlist' => 'page-1',
         ]);
