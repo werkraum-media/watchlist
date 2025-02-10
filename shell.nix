@@ -10,7 +10,7 @@ let
       composer
     ];
     text = ''
-      composer install --prefer-dist --no-progress --working-dir="$PROJECT_ROOT"
+      composer update --prefer-dist --no-progress --working-dir="$PROJECT_ROOT"
     '';
   };
   projectValidateComposer = pkgs.writeShellApplication {
