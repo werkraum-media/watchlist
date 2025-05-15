@@ -1,4 +1,4 @@
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:form/Configuration/TypoScript/setup.typoscript">
+@import 'EXT:form/Configuration/TypoScript/setup.typoscript'
 
 plugin.tx_form.settings.yamlConfigurations {
     80 = EXT:watchlist/Configuration/Form/Setup.yaml

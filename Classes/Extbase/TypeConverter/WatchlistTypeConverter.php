@@ -30,11 +30,11 @@ use WerkraumMedia\Watchlist\Domain\Repository\WatchlistRepository;
 
 class WatchlistTypeConverter extends AbstractTypeConverter
 {
-    protected $sourceTypes = ['string'];
+    protected array $sourceTypes = ['string'];
 
-    protected $targetType = Watchlist::class;
+    protected string $targetType = Watchlist::class;
 
-    protected $priority = 10;
+    protected int $priority = 10;
 
     private WatchlistRepository $repository;
 
