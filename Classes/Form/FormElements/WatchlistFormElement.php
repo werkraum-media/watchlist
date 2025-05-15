@@ -40,6 +40,7 @@ final class WatchlistFormElement extends AbstractFormElement
 
     public function getWatchlist(): ?Watchlist
     {
+        // Only trigger once they are actually used = this method is used.
         $cacheInstruction = $this->getCacheInstruction();
 
         $cacheInstruction->disableCache('Prevent watchlist items from being cached for users.');
@@ -49,7 +50,6 @@ final class WatchlistFormElement extends AbstractFormElement
 
     private function getCacheInstruction(): CacheInstruction
     {
-        // Only trigger once they are actually used = this method is used.
         $request = $this->getRequest();
         if (is_null($request)) {
             throw new RuntimeException('Could not get request.', 1747311155);
