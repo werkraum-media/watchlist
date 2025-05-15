@@ -92,11 +92,10 @@ class BasicsTest extends FunctionalTestCase
         $request = $request->withCookieParams([
             'watchlist' => 'page-1',
         ]);
-        // $request = $request->withHeader('Cookie', 'watchlist=page-1');
         $result = $this->executeFrontendSubRequest($request);
 
         self::assertMatchesRegularExpression('#<li>\s*Page Title#', $result->getBody()->__toString());
-        self::assertStringContainsString('<img src="/fileadmin/Files/FirstResult.png" width="" height="" alt="" />', $result->getBody()->__toString());
+        self::assertStringContainsString('<img src="/fileadmin/Files/FirstResult.png" width="956" height="377" alt="" />', $result->getBody()->__toString());
     }
 
     #[Test]

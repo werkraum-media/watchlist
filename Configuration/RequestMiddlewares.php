@@ -21,15 +21,17 @@ declare(strict_types=1);
  * 02110-1301, USA.
  */
 
+use WerkraumMedia\Watchlist\Middleware\CookieSessionMiddleware;
+
 return [
     'frontend' => [
         'watchlist-cookiesession' => [
-            'target' => \WerkraumMedia\Watchlist\Middleware\CookieSessionMiddleware::class,
+            'target' => CookieSessionMiddleware::class,
             'after' => [
-                'typo3/cms-frontend/content-length-headers',
+                'typo3/cms-frontend/prepare-tsfe-rendering',
             ],
             'before' => [
-                'typo3/cms-frontend/output-compression',
+                'typo3/cms-core/response-propagation',
             ],
         ],
     ],

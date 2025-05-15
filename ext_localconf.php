@@ -2,7 +2,7 @@
 
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use WerkraumMedia\Watchlist\Controller\WatchlistController;
-use WerkraumMedia\Watchlist\Form\Hook\BeforeRenderingHook;
+use WerkraumMedia\Watchlist\Form\EventListener\BeforeRenderingEventListener;
 
 defined('TYPO3') || die('Access denied.');
 
@@ -19,5 +19,5 @@ defined('TYPO3') || die('Access denied.');
         ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
-    BeforeRenderingHook::register();
+    BeforeRenderingEventListener::register();
 })();

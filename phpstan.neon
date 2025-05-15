@@ -9,6 +9,3 @@ parameters:
   reportUnmatchedIgnoredErrors: true
   ignoreErrors:
     - identifier: 'missingType.iterableValue'
-  typo3:
-    requestGetAttributeMapping:
-      frontend.cache.instruction: TYPO3\CMS\Frontend\Cache\CacheInstruction|null
