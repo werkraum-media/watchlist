@@ -30,11 +30,11 @@ use WerkraumMedia\Watchlist\Domain\Repository\ItemRepository;
 
 class ItemTypeConverter extends AbstractTypeConverter
 {
-    protected $sourceTypes = ['string'];
+    protected array $sourceTypes = ['string'];
 
-    protected $targetType = Item::class;
+    protected string $targetType = Item::class;
 
-    protected $priority = 10;
+    protected int $priority = 10;
 
     private ItemRepository $itemRepository;
 

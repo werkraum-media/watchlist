@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace WerkraumMedia\Watchlist\Form\FormElements;
 
+use RuntimeException;
 use TYPO3\CMS\Form\Domain\Model\FormElements\AbstractFormElement;
+use TYPO3\CMS\Frontend\Cache\CacheInstruction;
 use WerkraumMedia\Watchlist\Domain\Model\Watchlist;
 use WerkraumMedia\Watchlist\Session\SessionServiceInterface;
 
@@ -38,10 +40,25 @@ final class WatchlistFormElement extends AbstractFormElement
 
     public function getWatchlist(): ?Watchlist
     {
-        // Prevent watchlist items from being cached for users.
         // Only trigger once they are actually used = this method is used.
-        $GLOBALS['TSFE']->no_cache = 1;
+        $cacheInstruction = $this->getCacheInstruction();
+
+        $cacheInstruction->disableCache('Prevent watchlist items from being cached for users.');
 
         return $this->sessionService->getWatchlist('default');
+    }
+
+    private function getCacheInstruction(): CacheInstruction
+    {
+        $request = $this->getRequest();
+        if (is_null($request)) {
+            throw new RuntimeException('Could not get request.', 1747311155);
+        }
+
+        $cacheInstruction = $request->getAttribute('frontend.cache.instruction');
+        if (($cacheInstruction instanceof CacheInstruction) === false) {
+            throw new RuntimeException('Could not get cache instruction from request.', 1747313867);
+        }
+        return $cacheInstruction;
     }
 }
