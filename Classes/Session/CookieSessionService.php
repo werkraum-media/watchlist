@@ -34,14 +34,6 @@ class CookieSessionService implements CookieSessionInterface, SessionServiceInte
 
     private array $watchlists = [];
 
-    public function __construct(
-    ) {
-        $this->watchlists['default'] = array_filter(explode(
-            ',',
-            $this->getRequest()->getCookieParams()[$this->getCookieName()] ?? ''
-        ));
-    }
-
     // Seems to be a bug leading to different instances if we use constructor.
     public function injectPropertyMapper(PropertyMapper $propertyMapper): void
     {
@@ -50,7 +42,8 @@ class CookieSessionService implements CookieSessionInterface, SessionServiceInte
 
     public function getWatchlist(string $identifier): ?Watchlist
     {
-        $items = $this->watchlists['default'];
+        $items = $this->getDefaultWatchlist();
+
         if ($items === []) {
             return null;
         }
@@ -84,7 +77,19 @@ class CookieSessionService implements CookieSessionInterface, SessionServiceInte
 
     public function getCookieValue(): string
     {
-        return implode(',', $this->watchlists['default'] ?? []);
+        return implode(',', $this->getDefaultWatchlist());
+    }
+
+    private function getDefaultWatchlist(): array
+    {
+        if (isset($this->watchlists['default']) === false) {
+            $this->watchlists['default'] = array_filter(explode(
+                ',',
+                $this->getRequest()->getCookieParams()[$this->getCookieName()] ?? ''
+            ));
+        }
+
+        return $this->watchlists['default'];
     }
 
     private function getRequest(): ServerRequest

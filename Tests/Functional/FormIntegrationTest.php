@@ -53,7 +53,7 @@ class FormIntegrationTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function rendersWatchlistItemsIntoForm(): void
+    public function rendersOnlyExpectedWatchlistItemsIntoForm(): void
     {
         $request = new InternalRequest();
         $request = $request->withPageId(2);
@@ -64,7 +64,7 @@ class FormIntegrationTest extends FunctionalTestCase
 
         self::assertSame(200, $result->getStatusCode());
         $html = $result->getBody()->__toString();
-        self::assertSame(2, substr_count($html, 'form-group'));
+        self::assertSame(2, substr_count($html, 'form-check-label'));
         self::assertStringContainsString('<span>Form: Page Title</span>', $html);
         self::assertStringContainsString('value="Page: Page Title"', $html);
         self::assertStringContainsString('<span>Form: Page 2 Title</span>', $html);
@@ -80,7 +80,7 @@ class FormIntegrationTest extends FunctionalTestCase
 
         self::assertSame(200, $result->getStatusCode());
         $html = $result->getBody()->__toString();
-        self::assertSame(1, substr_count($html, 'form-group'));
+        self::assertSame(0, substr_count($html, 'form-check-label'));
         self::assertStringNotContainsString('checkbox', $html);
         self::assertStringNotContainsString('Watchlist', $html);
     }

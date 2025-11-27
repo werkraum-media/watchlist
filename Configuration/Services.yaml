@@ -17,6 +17,11 @@ services:
   WerkraumMedia\Watchlist\Form\Hook\BeforeRenderingHook:
     public: true
 
+  WerkraumMedia\Watchlist\Form\EventListener\BeforeRenderingEventListener:
+    tags:
+      - name: 'event.listener'
+        event: 'TYPO3\CMS\Form\Event\BeforeRenderableIsRenderedEvent'
+
   WerkraumMedia\Watchlist\Extbase\TypeConverter\ItemTypeConverter:
     tags:
       - name: 'extbase.type_converter'
