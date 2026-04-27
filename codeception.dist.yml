@@ -16,8 +16,7 @@ suites:
             - 'geckodriver > Tests/Acceptance/_output/geckodriver.log 2>&1'
             - 'TYPO3_PATH_APP="$INSTANCE_PATH" TYPO3_PATH_ROOT="$INSTANCE_PATH" php -S 127.0.0.1:8080 -t "$INSTANCE_PATH" > Tests/Acceptance/_output/php.log 2>&1'
         - WerkraumMedia\Watchlist\Tests\Acceptance\Support\Environment:
-            typo3DatabaseUsername: 'testing'
-            typo3DatabasePassword: 'testing'
+            typo3DatabaseDriver: 'pdo_sqlite'
 
     modules:
       enabled:

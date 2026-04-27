@@ -31,3 +31,23 @@ runs:
 
     - name: 'PHPUnit Tests'
       run: './vendor/bin/phpunit --display-all-issues'
+
+    - name: 'Codeception Tests'
+      run: |
+          export INSTANCE_PATH="${{ forgejo.workspace }}/.Build/web/typo3temp/var/tests/acceptance"
+          mkdir -p "$INSTANCE_PATH"
+          ./vendor/bin/codecept run
+
+    - name: 'Upload Acceptance Test Output'
+      if: 'failure()'
+      uses: 'actions/upload-artifact@v4'
+      with:
+        name: 'Acceptance Test Output ${{ inputs.php-version }} ${{ inputs.typo3-version }}'
+        path: 'Tests/Acceptance/_output/'
+
+    - name: 'Upload Acceptance Test Reports'
+      if: 'failure()'
+      uses: 'actions/upload-artifact@v4'
+      with:
+        name: 'Acceptance Test Reports ${{ inputs.php-version }} ${{ inputs.typo3-version }}'
+        path: '.Build/web/typo3temp/var/tests/AcceptanceReports'

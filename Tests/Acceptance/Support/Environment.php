@@ -37,13 +37,16 @@ class Environment extends BackendEnvironment
      */
     protected $localConfig = [
         'coreExtensionsToLoad' => [
-            'core',
             'backend',
+            'core',
             'extbase',
-            'frontend',
+            'filelist',
+            'filemetadata',
             'fluid',
             'fluid_styled_content',
             'form',
+            'frontend',
+            'install',
         ],
         'testExtensionsToLoad' => [
             'typo3conf/ext/watchlist',
