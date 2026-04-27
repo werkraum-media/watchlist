@@ -33,8 +33,10 @@ class FormIntegrationTest extends FunctionalTestCase
     {
         $this->coreExtensionsToLoad = [
             'typo3/cms-filelist',
+            'typo3/cms-filemetadata',
             'typo3/cms-fluid-styled-content',
             'typo3/cms-form',
+            'typo3/cms-install',
         ];
 
         $this->testExtensionsToLoad = [
