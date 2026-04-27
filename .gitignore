@@ -2,3 +2,4 @@
 /.php-cs-fixer.cache
 /.Build/
 /vendor/
+/var/
