@@ -42,10 +42,10 @@
     "require-dev": {
         "codeception/codeception": "^5.0",
         "codeception/module-webdriver": "^4.0",
-        "friendsofphp/php-cs-fixer": "^3.11",
+        "friendsofphp/php-cs-fixer": "3.95.1",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^1.10",
-        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan": "1.12.33",
+        "phpstan/phpstan-phpunit": "1.4.2",
         "phpunit/phpunit": "^10.5 || ^11.5",
         "typo3/testing-framework": "^9.2"
     },
