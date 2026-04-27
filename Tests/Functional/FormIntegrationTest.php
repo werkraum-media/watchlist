@@ -32,6 +32,7 @@ class FormIntegrationTest extends FunctionalTestCase
     protected function setUp(): void
     {
         $this->coreExtensionsToLoad = [
+            'typo3/cms-filelist',
             'typo3/cms-fluid-styled-content',
             'typo3/cms-form',
         ];
