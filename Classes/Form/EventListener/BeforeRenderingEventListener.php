@@ -46,12 +46,16 @@ final class BeforeRenderingEventListener
         $this->sessionService = $sessionService;
     }
 
+    // TODO: typo3/cms-core:^15.0 remove the phpstan comments
+    // @phpstan-ignore class.notFound (Only works in v14, not in v13)
     public function __invoke(BeforeRenderableIsRenderedEvent $event): void
     {
+        // @phpstan-ignore class.notFound (Only works in v14, not in v13)
         if (!$event->renderable instanceof WatchlistFormElement) {
             return;
         }
 
+        // @phpstan-ignore class.notFound (Only works in v14, not in v13)
         $event->renderable->injectSessionService($this->sessionService);
     }
 

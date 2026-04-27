@@ -6,6 +6,6 @@ parameters:
     - 'Tests'
   excludePaths:
     - 'Tests/Acceptance/Support/_generated/'
-  reportUnmatchedIgnoredErrors: true
+  reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - identifier: 'missingType.iterableValue'
